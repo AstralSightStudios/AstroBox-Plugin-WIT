@@ -1,0 +1,52 @@
+package astrobox:psys-host;
+
+interface config {
+    read: func() -> list<tuple<string, string>>;
+    write: func(content: list<tuple<string, string>>);
+}
+
+interface debug {
+    send-raw: async func(data: list<u8>);
+}
+
+interface device {
+    record device-info {
+        name: string,
+        addr: string
+    }
+
+    get-device-list: func() -> list<device-info>;
+    get-connected-device-list: func() -> list<device-info>;
+    disconnect-device: async func(device: device-info);
+}
+
+interface event {
+    send-event: func(event-name: string, payload: string);
+}
+
+interface queue {
+    enum resource-type {
+        quickapp,
+        watchface,
+        firmware
+    }
+
+    add-resource-to-queue: func(res-type: resource-type, file-path: string);
+}
+
+interface interconnect {
+    send-qaic-message: async func(pkg-name: string, data: string);
+}
+
+interface thirdpartyapp {
+    record app-info {
+        package-name: string,
+        fingerprint: list<u32>,
+        version-code: u32,
+        can-remove: bool,
+        app-name: string
+    }
+
+    launch-qa: async func(app-info: app-info, page-name: string);
+    get-thirdparty-app-list: async func() -> list<app-info>;
+}
