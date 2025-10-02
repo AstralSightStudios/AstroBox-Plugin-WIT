@@ -1,0 +1,5 @@
+package astrobox:psys-host;
+
+interface interconnect {
+    send-qaic-message: async func(pkg-name: string, data: string);
+}

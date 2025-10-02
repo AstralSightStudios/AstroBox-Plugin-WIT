@@ -1,0 +1,6 @@
+package astrobox:psys-host;
+
+interface config {
+    read: func() -> list<tuple<string, string>>;
+    write: func(content: list<tuple<string, string>>);
+}

@@ -1,0 +1,14 @@
+package astrobox:psys-host;
+
+interface thirdpartyapp {
+    record app-info {
+        package-name: string,
+        fingerprint: list<u32>,
+        version-code: u32,
+        can-remove: bool,
+        app-name: string
+    }
+
+    launch-qa: async func(app-info: app-info, page-name: string);
+    get-thirdparty-app-list: async func() -> list<app-info>;
+}

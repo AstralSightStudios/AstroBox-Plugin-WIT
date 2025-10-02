@@ -1,0 +1,5 @@
+package astrobox:psys-host;
+
+interface debug {
+    send-raw: async func(data: list<u8>);
+}

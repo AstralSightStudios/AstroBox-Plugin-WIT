@@ -1,0 +1,5 @@
+package astrobox:psys-host;
+
+interface event {
+    send-event: func(event-name: string, payload: string);
+}

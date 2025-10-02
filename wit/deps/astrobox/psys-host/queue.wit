@@ -1,0 +1,11 @@
+package astrobox:psys-host;
+
+interface queue {
+    enum resource-type {
+        quickapp,
+        watchface,
+        firmware
+    }
+
+    add-resource-to-queue: func(res-type: resource-type, file-path: string);
+}
