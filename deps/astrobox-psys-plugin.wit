@@ -12,5 +12,5 @@ interface event {
         provider-action
     }
 
-    on-event: async func(event-type: event-type, event-payload: string) -> string;
+    on-event: func(event-type: event-type, event-payload: string) -> future<string>;
 }
