@@ -9,7 +9,8 @@ interface event {
         plugin-message,
         interconnect-message,
         device-action,
-        provider-action
+        provider-action,
+        deeplink-action
     }
 
     on-event: func(event-type: event-type, event-payload: string) -> future<string>;

@@ -6,7 +6,7 @@ interface config {
 }
 
 interface debug {
-    send-raw: func(data: list<u8>) -> future<tuple<>>;
+    send-raw: func(data: list<u8>) -> future;
 }
 
 interface device {
@@ -17,7 +17,7 @@ interface device {
 
     get-device-list: func() -> list<device-info>;
     get-connected-device-list: func() -> list<device-info>;
-    disconnect-device: func(device: device-info) -> future<tuple<>>;
+    disconnect-device: func(device: device-info) -> future;
 }
 
 interface event {
@@ -35,7 +35,7 @@ interface queue {
 }
 
 interface interconnect {
-    send-qaic-message: func(pkg-name: string, data: string) -> future<tuple<>>;
+    send-qaic-message: func(pkg-name: string, data: string) -> future;
 }
 
 interface thirdpartyapp {
@@ -47,6 +47,6 @@ interface thirdpartyapp {
         app-name: string
     }
 
-    launch-qa: func(app-info: app-info, page-name: string) -> future<tuple<>>;
+    launch-qa: func(app-info: app-info, page-name: string) -> future;
     get-thirdparty-app-list: func() -> future<list<app-info>>;
 }
