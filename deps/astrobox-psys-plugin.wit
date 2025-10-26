@@ -7,11 +7,13 @@ interface lifecycle {
 interface event {
     enum event-type {
         plugin-message,
-        interconnect-message,
+        interconnect-message, // 需plugin执行host接口register-interconnect-recv才会收到
         device-action,
         provider-action,
-        deeplink-action
+        deeplink-action,
+
+        transport-packet, // 需plugin执行host接口register-transport-recv才会收到
     }
 
-    on-event: func(event-type: event-type, event-payload: string) -> future;
+    on-event: func(event-type: event-type, event-payload: string) -> future<string>;
 }

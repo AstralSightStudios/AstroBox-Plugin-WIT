@@ -1,12 +1,21 @@
 package astrobox:psys-host;
 
-interface config {
-    read: func() -> list<tuple<string, string>>;
-    write: func(content: list<tuple<string, string>>);
+interface os {
+    arch: func() -> future<string>;
+    hostname: func() -> future<string>;
+    locale: func() -> future<string>;
+    platform: func() -> future<string>;
+    version: func() -> future<string>;
 }
 
-interface debug {
-    send-raw: func(data: list<u8>) -> future;
+interface transport {
+    enum protocol {
+        XIAOMI-VELA-V5-PROTOBUF,
+    }
+
+    send: func(device-addr: string, data: list<u8>) -> future;
+    to-json: func(protocol: protocol, data: list<u8>) -> string;
+    from-json: func(protocol: protocol, data: string) -> result<list<u8>>;
 }
 
 interface device {
@@ -15,9 +24,26 @@ interface device {
         addr: string
     }
 
-    get-device-list: func() -> list<device-info>;
-    get-connected-device-list: func() -> list<device-info>;
-    disconnect-device: func(device: device-info) -> future;
+    get-device-list: func() -> future<list<device-info>>;
+    get-connected-device-list: func() -> future<list<device-info>>;
+    disconnect-device: func(addr: string) -> future<result>;
+}
+
+interface register {
+    record transport-recv-filer {
+        xiaomi-vela-v5-channel-id: u32,
+        xiaomi-vela-v5-protobuf-typeid: u32,
+    }
+
+    enum provider-type {
+        URL,
+        CUSTOM
+    }
+
+    register-transport-recv: func(addr: string, filter: transport-recv-filer) -> future<result>;
+    register-interconnect-recv: func(addr: string, pkg-name: string) -> future<result>;
+    register-deeplink-action: func() -> future<result>;
+    register-provider: func(name: string, provider-type: provider-type) -> future<result>;
 }
 
 interface event {
@@ -35,7 +61,28 @@ interface queue {
 }
 
 interface interconnect {
-    send-qaic-message: func(pkg-name: string, data: string) -> future;
+    send-qaic-message: func(device-addr: string, pkg-name: string, data: string) -> future<result>;
+}
+
+interface picker {
+    record pick-config {
+        read: bool,
+        copy-to: option<string>,
+    }
+
+    record filter-config {
+        multiple: bool,
+        extensions: list<string>,
+        default-directory: string,
+        default-file-name: string,
+    }
+
+    record pick-result {
+        name: string,
+        data: list<u8>,
+    }
+
+    pick-file: func(config: pick-config, filter: filter-config) -> future<pick-result>;
 }
 
 interface thirdpartyapp {
@@ -47,6 +94,6 @@ interface thirdpartyapp {
         app-name: string
     }
 
-    launch-qa: func(app-info: app-info, page-name: string) -> future;
-    get-thirdparty-app-list: func() -> future<list<app-info>>;
+    launch-qa: func(addr: string, app-info: app-info, page-name: string) -> future<result>;
+    get-thirdparty-app-list: func(addr: string) -> future<result<list<app-info>>>;
 }

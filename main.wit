@@ -2,24 +2,28 @@ package astrobox:main;
 
 // 傻逼vsc会在这报错 别管
 
-use astrobox:psys-host/config;
-use astrobox:psys-host/debug;
+use astrobox:psys-host/os;
+use astrobox:psys-host/transport;
 use astrobox:psys-host/device;
+use astrobox:psys-host/register;
 use astrobox:psys-host/event;
 use astrobox:psys-host/queue;
 use astrobox:psys-host/interconnect;
+use astrobox:psys-host/picker;
 use astrobox:psys-host/thirdpartyapp;
 
 use astrobox:psys-plugin/lifecycle;
 use astrobox:psys-plugin/event as plugin-event;
 
 world psys-world {
-  import config;
-  import debug;
+  import os;
+  import transport;
   import device;
+  import register;
   import event;
   import queue;
   import interconnect;
+  import picker;
   import thirdpartyapp;
 
   export lifecycle;
