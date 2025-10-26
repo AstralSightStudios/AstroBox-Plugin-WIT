@@ -13,5 +13,5 @@ interface event {
         deeplink-action
     }
 
-    on-event: func(event-type: event-type, event-payload: string) -> future<string>;
+    on-event: func(event-type: event-type, event-payload: string) -> future;
 }
