@@ -4,6 +4,7 @@ package astrobox:main;
 
 use astrobox:psys-host/os;
 use astrobox:psys-host/transport;
+use astrobox:psys-host/ui;
 use astrobox:psys-host/device;
 use astrobox:psys-host/register;
 use astrobox:psys-host/event;
@@ -13,11 +14,13 @@ use astrobox:psys-host/picker;
 use astrobox:psys-host/thirdpartyapp;
 
 use astrobox:psys-plugin/lifecycle;
+use astrobox:psys-plugin/ui as plugin-ui;
 use astrobox:psys-plugin/event as plugin-event;
 
 world psys-world {
   import os;
   import transport;
+  import ui;
   import device;
   import register;
   import event;
@@ -27,5 +30,6 @@ world psys-world {
   import thirdpartyapp;
 
   export lifecycle;
+  export plugin-ui;
   export plugin-event;
 }

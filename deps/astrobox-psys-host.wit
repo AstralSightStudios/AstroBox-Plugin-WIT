@@ -14,8 +14,40 @@ interface transport {
     }
 
     send: func(device-addr: string, data: list<u8>) -> future;
+    request: func(device-addr: string, data: list<u8>) -> future<result<list<u8>>>;
     to-json: func(protocol: protocol, data: list<u8>) -> string;
     from-json: func(protocol: protocol, data: string) -> result<list<u8>>;
+}
+
+interface ui {
+    enum dialog-type {
+        ALERT,
+        INPUT
+    }
+
+    enum dialog-style {
+        WEBSITE,
+        SYSTEM
+    }
+
+    record dialog-button {
+        id: string,
+        primary: bool,
+        content: string
+    }
+
+    record dialog-info {
+        title: string,
+        content: string,
+        buttons: list<dialog-button>
+    }
+
+    record dialog-result {
+        clicked-btn-id: string,
+        input-result: string
+    }
+
+    show-dialog: func(dialog-type: dialog-type, style: dialog-style, info: dialog-info) -> future<dialog-result>;
 }
 
 interface device {

@@ -4,6 +4,10 @@ interface lifecycle {
     on-load: func();
 }
 
+interface ui {
+    render-settings-ui: func() -> future<string>;
+}
+
 interface event {
     enum event-type {
         plugin-message,
