@@ -98,10 +98,23 @@ interface ui2{
         radius:func(radius:u32) -> element;
         border:func(width:u32,color:string) -> element;
 
+        relative:func() -> element;
+        absolute:func() -> element;
+
+        top:func(position:u32) -> element;
+        bottom:func(position:u32) -> element;
+        left:func(position:u32) -> element;
+        right:func(position:u32) -> element;
+
+        opacity:func(opacity:f32) -> element;
+        transition:func(transition:string) -> element;
+
+        z-index:func(z:s32) -> element;
+        disabled:func() -> element;
+
         child:func(child:element) -> element;
 
-        on:func(event:event) -> element;
-        get-id:func() -> string;//on的事件传回靠这个id
+        on:func(event:event,id:string) -> element;
     }
 
     enum event{
