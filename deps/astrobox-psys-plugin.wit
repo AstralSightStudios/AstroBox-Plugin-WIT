@@ -9,6 +9,7 @@ interface ui {
 }
 
 interface event {
+
     enum event-type {
         plugin-message,
         interconnect-message, // 需plugin执行host接口register-interconnect-recv才会收到
@@ -20,4 +21,8 @@ interface event {
     }
 
     on-event: func(event-type: event-type, event-payload: string) -> future<string>;
+
+    use astrobox:psys-host/ui2.{event};
+    //element是组件id，event是事件类型，event-payload是事件数据
+    on-ui-event:func(element: string, event: event, event-payload: string) -> future<string>;
 }

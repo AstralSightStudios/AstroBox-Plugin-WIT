@@ -48,6 +48,73 @@ interface ui {
     }
 
     show-dialog: func(dialog-type: dialog-type, style: dialog-style, info: dialog-info) -> future<dialog-result>;
+
+}
+interface ui2{
+
+    enum element-type {
+        BUTTON,
+        IMAGE,
+        VIDEO,
+        AUDIO,
+        SVG,
+        DIV,
+        SPAN,
+        P,
+    }
+
+    resource element{
+        constructor(element-type:element-type,content:option<string>);
+        content:func(content:option<string>) -> element;
+
+        flex:func() -> element;
+
+        margin:func(margin:u32) -> element;
+        margin-top:func(margin:u32) -> element;
+        margin-bottom:func(margin:u32) -> element;
+        margin-left:func(margin:u32) -> element;
+        margin-right:func(margin:u32) -> element;
+
+        padding:func(padding:u32) -> element;
+        padding-top:func(padding:u32) -> element;
+        padding-bottom:func(padding:u32) -> element;
+        padding-left:func(padding:u32) -> element;
+        padding-right:func(padding:u32) -> element;
+
+        align-center:func() -> element;
+        align-end:func() -> element;
+        align-start:func() -> element;
+
+        justify-center:func() -> element;
+        justify-start:func() -> element;
+        justify-end:func() -> element;
+
+        bg:func(color:string) -> element;
+        text-color:func(color:string) -> element;
+
+        size:func(size:u32) -> element;
+        width:func(width:u32) -> element;
+        height:func(height:u32) -> element;
+        radius:func(radius:u32) -> element;
+        border:func(width:u32,color:string) -> element;
+
+        child:func(child:element) -> element;
+
+        on:func(event:event) -> element;
+        get-id:func() -> string;//on的事件传回靠这个id
+    }
+
+    enum event{
+        CLICK,
+        HOVER,
+        CHANGE,
+        POINTER-DOWN,
+        POINTER-UP,
+        POINTER-MOVE,
+    }
+
+    render:func(el:element);
+
 }
 
 interface device {
