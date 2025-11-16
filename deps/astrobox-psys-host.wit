@@ -19,7 +19,7 @@ interface transport {
     from-json: func(protocol: protocol, data: string) -> result<list<u8>>;
 }
 
-interface ui {
+interface dialog {
     enum dialog-type {
         ALERT,
         INPUT
@@ -50,8 +50,8 @@ interface ui {
     show-dialog: func(dialog-type: dialog-type, style: dialog-style, info: dialog-info) -> future<dialog-result>;
 
 }
-interface ui2{
 
+interface ui {
     enum element-type {
         BUTTON,
         IMAGE,
@@ -117,7 +117,7 @@ interface ui2{
         on:func(event:event,id:string) -> element;
     }
 
-    enum event{
+    enum event {
         CLICK,
         HOVER,
         CHANGE,
@@ -127,7 +127,6 @@ interface ui2{
     }
 
     render:func(el:element);
-
 }
 
 interface device {

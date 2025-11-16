@@ -5,7 +5,7 @@ package astrobox:main;
 use astrobox:psys-host/os;
 use astrobox:psys-host/transport;
 use astrobox:psys-host/ui;
-use astrobox:psys-host/ui2;
+use astrobox:psys-host/dialog;
 use astrobox:psys-host/device;
 use astrobox:psys-host/register;
 use astrobox:psys-host/event;
@@ -22,7 +22,7 @@ world psys-world {
   import os;
   import transport;
   import ui;
-  import ui2;
+  import dialog;
   import device;
   import register;
   import event;

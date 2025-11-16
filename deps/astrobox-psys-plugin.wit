@@ -22,7 +22,7 @@ interface event {
 
     on-event: func(event-type: event-type, event-payload: string) -> future<string>;
 
-    use astrobox:psys-host/ui2.{event};
+    use astrobox:psys-host/ui.{event};
     //element是组件id，event是事件类型，event-payload是事件数据
-    on-ui-event:func(event-id: string, event: event, event-payload: string) -> future<string>;
+    on-ui-event: func(event-id: string, event: event, event-payload: string) -> future<string>;
 }
