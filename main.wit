@@ -11,7 +11,6 @@ use astrobox:psys-host/register;
 use astrobox:psys-host/event;
 use astrobox:psys-host/queue;
 use astrobox:psys-host/interconnect;
-use astrobox:psys-host/picker;
 use astrobox:psys-host/thirdpartyapp;
 
 use astrobox:psys-plugin/lifecycle;
@@ -28,7 +27,6 @@ world psys-world {
   import event;
   import queue;
   import interconnect;
-  import picker;
   import thirdpartyapp;
 
   export lifecycle;

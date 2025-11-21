@@ -47,8 +47,26 @@ interface dialog {
         input-result: string
     }
 
+    record pick-config {
+        read: bool,
+        copy-to: option<string>,
+    }
+
+    record filter-config {
+        multiple: bool,
+        extensions: list<string>,
+        default-directory: string,
+        default-file-name: string,
+    }
+
+    record pick-result {
+        name: string,
+        data: list<u8>,
+    }
+
     show-dialog: func(dialog-type: dialog-type, style: dialog-style, info: dialog-info) -> future<dialog-result>;
 
+    pick-file: func(config: pick-config, filter: filter-config) -> future<pick-result>;
 }
 
 interface ui {
@@ -173,27 +191,6 @@ interface queue {
 
 interface interconnect {
     send-qaic-message: func(device-addr: string, pkg-name: string, data: string) -> future<result>;
-}
-
-interface picker {
-    record pick-config {
-        read: bool,
-        copy-to: option<string>,
-    }
-
-    record filter-config {
-        multiple: bool,
-        extensions: list<string>,
-        default-directory: string,
-        default-file-name: string,
-    }
-
-    record pick-result {
-        name: string,
-        data: list<u8>,
-    }
-
-    pick-file: func(config: pick-config, filter: filter-config) -> future<pick-result>;
 }
 
 interface thirdpartyapp {
