@@ -14,7 +14,6 @@ use astrobox:psys-host/interconnect;
 use astrobox:psys-host/thirdpartyapp;
 
 use astrobox:psys-plugin/lifecycle;
-use astrobox:psys-plugin/ui as plugin-ui;
 use astrobox:psys-plugin/event as plugin-event;
 
 world psys-world {
@@ -30,6 +29,5 @@ world psys-world {
   import thirdpartyapp;
 
   export lifecycle;
-  export plugin-ui;
   export plugin-event;
 }
