@@ -6,6 +6,7 @@ interface os {
     locale: func() -> future<string>;
     platform: func() -> future<string>;
     version: func() -> future<string>;
+    astrobox-language: func() -> future<string>;
 }
 
 interface transport {
@@ -145,6 +146,8 @@ interface ui {
     }
 
     render:func(el:element);
+    render-to-element-card:func(id:string,el:element);
+    render-to-text-card:func(id:string,text:string);
 }
 
 interface device {
@@ -169,10 +172,16 @@ interface register {
         CUSTOM
     }
 
+    enum card-type {
+        ELEMENT,
+        TEXT
+    }
+
     register-transport-recv: func(addr: string, filter: transport-recv-filer) -> future<result>;
     register-interconnect-recv: func(addr: string, pkg-name: string) -> future<result>;
     register-deeplink-action: func() -> future<result>;
     register-provider: func(name: string, provider-type: provider-type) -> future<result>;
+    register-card: func(card-type: card-type, id: string, name: string) -> future<result>;
 }
 
 interface event {
