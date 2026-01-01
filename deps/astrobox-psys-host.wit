@@ -145,8 +145,7 @@ interface ui {
         POINTER-MOVE,
     }
 
-    render:func(el:element);
-    render-to-element-card:func(id:string,el:element);
+    render:func(id:string,el:element);
     render-to-text-card:func(id:string,text:string);
 }
 
