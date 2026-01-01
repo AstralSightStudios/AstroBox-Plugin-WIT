@@ -23,6 +23,6 @@ interface event {
     on-ui-event: func(event-id: string, event: event, event-payload: string) -> future<string>;
 
     //在页面需要的适合执行，传入组件id，通过调用host的ui.render(id,el)函数渲染
-    on-ui-render: func(element-id: string) -> future<void>;
-    on-card-render: func(card-id: string) -> future<void>;
+    on-ui-render: func(element-id: string) -> future;
+    on-card-render: func(card-id: string) -> future;
 }
