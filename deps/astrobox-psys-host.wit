@@ -82,11 +82,21 @@ interface ui {
         P,
     }
 
+    enum flex-direction {
+        ROW,
+        COLUMN,
+        ROW-REVERSE,
+        COLUMN-REVERSE,
+    }
+
     resource element{
         constructor(element-type:element-type,content:option<string>);
         content:func(content:option<string>) -> element;
 
+        background:func(bg:string) -> element;
+
         flex:func() -> element;
+        flex-direction:func(direction:flex-direction) -> element;
 
         margin:func(margin:u32) -> element;
         margin-top:func(margin:u32) -> element;
@@ -113,7 +123,11 @@ interface ui {
 
         size:func(size:u32) -> element;
         width:func(width:u32) -> element;
+        width-full:func() -> element;
+        width-half:func() -> element;
         height:func(height:u32) -> element;
+        height-full:func() -> element;
+        height-half:func() -> element;
         radius:func(radius:u32) -> element;
         border:func(width:u32,color:string) -> element;
 
