@@ -93,8 +93,6 @@ interface ui {
         constructor(element-type:element-type,content:option<string>);
         content:func(content:option<string>) -> element;
 
-        background:func(bg:string) -> element;
-
         flex:func() -> element;
         flex-direction:func(direction:flex-direction) -> element;
 
