@@ -7,6 +7,7 @@ interface os {
     platform: func() -> future<string>;
     version: func() -> future<string>;
     astrobox-language: func() -> future<string>;
+    appearance: func() -> future<string>;
 }
 
 interface transport {
@@ -158,6 +159,8 @@ interface ui {
         INPUT,
         FOCUS,
         BLUR,
+        MOUSE-ENTER,
+        MOUSE-LEAVE,
         POINTER-DOWN,
         POINTER-UP,
         POINTER-MOVE,
