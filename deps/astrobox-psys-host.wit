@@ -73,6 +73,9 @@ interface dialog {
 interface ui {
     enum element-type {
         BUTTON,
+        INPUT,
+        SELECT,
+        OPTION,
         IMAGE,
         VIDEO,
         AUDIO,
@@ -152,6 +155,9 @@ interface ui {
         CLICK,
         HOVER,
         CHANGE,
+        INPUT,
+        FOCUS,
+        BLUR,
         POINTER-DOWN,
         POINTER-UP,
         POINTER-MOVE,
