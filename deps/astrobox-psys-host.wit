@@ -143,6 +143,7 @@ interface ui {
 
         opacity:func(opacity:f32) -> element;
         transition:func(transition:string) -> element;
+        without-default-styles:func() -> element;
 
         z-index:func(z:s32) -> element;
         disabled:func() -> element;
