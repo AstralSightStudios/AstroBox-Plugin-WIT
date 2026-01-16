@@ -8,6 +8,7 @@ interface os {
     version: func() -> future<string>;
     astrobox-language: func() -> future<string>;
     appearance: func() -> future<string>;
+    timezone-offset-minutes: func() -> future<s32>;
 }
 
 interface transport {
