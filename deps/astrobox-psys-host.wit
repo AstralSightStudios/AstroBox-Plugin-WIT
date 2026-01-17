@@ -70,6 +70,8 @@ interface dialog {
     show-dialog: func(dialog-type: dialog-type, style: dialog-style, info: dialog-info) -> future<dialog-result>;
 
     pick-file: func(config: pick-config, filter: filter-config) -> future<pick-result>;
+
+    open-url: func(url: string);
 }
 
 interface ui {
