@@ -222,6 +222,12 @@ interface queue {
     add-resource-to-queue: func(res-type: resource-type, file-path: string);
 }
 
+interface timer {
+    set-timeout: func(delay-ms: u64, payload: string) -> future<u64>;
+    set-interval: func(interval-ms: u64, payload: string) -> future<u64>;
+    clear-timer: func(timer-id: u64) -> future;
+}
+
 interface interconnect {
     send-qaic-message: func(device-addr: string, pkg-name: string, data: string) -> future<result>;
 }
