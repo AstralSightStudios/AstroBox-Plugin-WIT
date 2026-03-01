@@ -13,6 +13,7 @@ use astrobox:psys-host/queue;
 use astrobox:psys-host/timer;
 use astrobox:psys-host/interconnect;
 use astrobox:psys-host/thirdpartyapp;
+use astrobox:psys-host/i18n;
 
 use astrobox:psys-plugin/lifecycle;
 use astrobox:psys-plugin/event as plugin-event;
@@ -29,6 +30,7 @@ world psys-world {
   import timer;
   import interconnect;
   import thirdpartyapp;
+  import i18n;
 
   export lifecycle;
   export plugin-event;

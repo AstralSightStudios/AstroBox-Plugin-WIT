@@ -244,3 +244,7 @@ interface thirdpartyapp {
     launch-qa: func(addr: string, app-info: app-info, page-name: string) -> future<result>;
     get-thirdparty-app-list: func(addr: string) -> future<result<list<app-info>>>;
 }
+
+interface i18n {
+    load-json: func(content: string) -> future<result>;
+}
