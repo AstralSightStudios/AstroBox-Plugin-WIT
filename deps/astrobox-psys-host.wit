@@ -289,6 +289,23 @@ interface ui-v3 {
 
         opacity:func(opacity:f32) -> element;
         transition:func(transition:string) -> element;
+        transform:func(value:string) -> element;
+        transform-origin:func(value:string) -> element;
+        animation:func(value:string) -> element;
+        animation-name:func(name:string) -> element;
+        animation-duration-ms:func(ms:u32) -> element;
+        animation-delay-ms:func(ms:u32) -> element;
+        animation-easing:func(easing:string) -> element;
+        animation-iteration-count:func(count:string) -> element;
+        animation-direction:func(direction:string) -> element;
+        animation-fill-mode:func(fill-mode:string) -> element;
+        animation-play-state:func(play-state:string) -> element;
+        animation-preset:func(name:string) -> element;
+        will-change:func(value:string) -> element;
+        filter:func(value:string) -> element;
+        backdrop-filter:func(value:string) -> element;
+        perspective:func(value:string) -> element;
+        backface-visibility:func(value:string) -> element;
         without-default-styles:func() -> element;
 
         z-index:func(z:s32) -> element;
