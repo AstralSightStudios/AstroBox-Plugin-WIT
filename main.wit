@@ -1,10 +1,11 @@
-package astrobox:main;
+﻿package astrobox:main;
 
 // 傻逼vsc会在这报错 别管
 
 use astrobox:psys-host/os;
 use astrobox:psys-host/transport;
 use astrobox:psys-host/ui;
+use astrobox:psys-host/ui-v3;
 use astrobox:psys-host/dialog;
 use astrobox:psys-host/device;
 use astrobox:psys-host/register;
@@ -22,6 +23,7 @@ world psys-world {
   import os;
   import transport;
   import ui;
+  import ui-v3;
   import dialog;
   import device;
   import register;
