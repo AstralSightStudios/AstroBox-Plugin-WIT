@@ -322,6 +322,10 @@ interface ui-v3 {
         max-height:func(height:u32) -> element;
         min-width:func(width:u32) -> element;
         min-height:func(height:u32) -> element;
+        scroll-top:func(position:u32) -> element;
+        scroll-left:func(position:u32) -> element;
+        scroll-to:func(top:u32, left:u32) -> element;
+        scroll-behavior:func(behavior:string) -> element;
 
         flex-grow:func(value:f32) -> element;
         flex-shrink:func(value:f32) -> element;
