@@ -307,6 +307,8 @@ interface ui-v3 {
         perspective:func(value:string) -> element;
         backface-visibility:func(value:string) -> element;
         without-default-styles:func() -> element;
+        autofocus:func() -> element;
+        tab-index:func(index:s32) -> element;
 
         z-index:func(z:s32) -> element;
         disabled:func() -> element;
