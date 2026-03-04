@@ -67,9 +67,19 @@ interface dialog {
         data: list<u8>,
     }
 
+    record save-session {
+        session-id: u64,
+        name: string,
+    }
+
     show-dialog: func(dialog-type: dialog-type, style: dialog-style, info: dialog-info) -> future<dialog-result>;
 
     pick-file: func(config: pick-config, filter: filter-config) -> future<pick-result>;
+
+    save-file-start: func(filter: filter-config) -> future<result<save-session>>;
+    save-file-write-chunk: func(session-id: u64, data: list<u8>) -> future<result>;
+    save-file-finish: func(session-id: u64) -> future<result>;
+    save-file-abort: func(session-id: u64) -> future;
 
     open-url: func(url: string);
 }
