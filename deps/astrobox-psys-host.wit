@@ -436,6 +436,17 @@ interface thirdpartyapp {
     get-thirdparty-app-list: func(addr: string) -> future<result<list<app-info>>>;
 }
 
+interface watchface {
+    record watchface-info {
+        id: string,
+        name: string,
+        is-current: bool,
+    }
+
+    get-watchface-list: func(addr: string) -> future<result<list<watchface-info>>>;
+    set-current-watchface: func(addr: string, watchface-id: string) -> future<result>;
+}
+
 interface i18n {
     load-json: func(content: string) -> future<result>;
 }
