@@ -203,16 +203,12 @@ interface ui-v3 {
         PROGRESS,
         GRID,
         SCROLL-AREA,
-        LIST,
-        LIST-ITEM,
         CODE,
         CARD,
         TABS-ROOT,
         TABS-LIST,
         TABS-TRIGGER,
         TABS-CONTENT,
-        ICON,
-        DIVIDER,
         CONTEXT-MENU-ROOT,
         CONTEXT-MENU-TRIGGER,
         CONTEXT-MENU-CONTENT,
@@ -233,13 +229,6 @@ interface ui-v3 {
         CHECKBOX,
         SEPARATOR,
         BADGE,
-        ALERT-DIALOG-ROOT,
-        ALERT-DIALOG-TRIGGER,
-        ALERT-DIALOG-CONTENT,
-        ALERT-DIALOG-TITLE,
-        ALERT-DIALOG-DESCRIPTION,
-        ALERT-DIALOG-ACTION,
-        ALERT-DIALOG-CANCEL,
     }
 
     enum flex-direction {
@@ -252,6 +241,7 @@ interface ui-v3 {
     resource element{
         constructor(element-type:element-type,content:option<string>);
         content:func(content:option<string>) -> element;
+        prop:func(name:string,value:string) -> element;
 
         flex:func() -> element;
         flex-direction:func(direction:flex-direction) -> element;
