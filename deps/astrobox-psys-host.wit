@@ -395,6 +395,7 @@ interface event {
 
 interface provider-callback {
     resolve-provider-action: func(request-id: string, response: string) -> bool;
+    report-provider-action-progress: func(request-id: string, progress: f32, status: string) -> bool;
 }
 
 interface queue {
