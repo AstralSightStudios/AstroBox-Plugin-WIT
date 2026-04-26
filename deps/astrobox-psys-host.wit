@@ -393,6 +393,10 @@ interface event {
     send-event: func(event-name: string, payload: string);
 }
 
+interface provider-callback {
+    resolve-provider-action: func(request-id: string, response: string) -> bool;
+}
+
 interface queue {
     enum resource-type {
         quickapp,
