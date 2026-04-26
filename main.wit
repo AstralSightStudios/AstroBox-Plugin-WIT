@@ -20,6 +20,7 @@ use astrobox:psys-host/i18n;
 
 use astrobox:psys-plugin/lifecycle;
 use astrobox:psys-plugin/event as plugin-event;
+use astrobox:psys-plugin/event-v3 as plugin-event-v3;
 
 world psys-world {
   import os;
@@ -40,4 +41,45 @@ world psys-world {
 
   export lifecycle;
   export plugin-event;
+}
+
+world psys-world-v2 {
+  import os;
+  import transport;
+  import ui;
+  import ui-v3;
+  import dialog;
+  import device;
+  import register;
+  import event;
+  import provider-callback;
+  import queue;
+  import timer;
+  import interconnect;
+  import thirdpartyapp;
+  import watchface;
+  import i18n;
+
+  export lifecycle;
+  export plugin-event;
+}
+
+world psys-world-v3 {
+  import os;
+  import transport;
+  import ui-v3;
+  import dialog;
+  import device;
+  import register;
+  import event;
+  import provider-callback;
+  import queue;
+  import timer;
+  import interconnect;
+  import thirdpartyapp;
+  import watchface;
+  import i18n;
+
+  export lifecycle;
+  export plugin-event-v3;
 }

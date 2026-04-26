@@ -27,3 +27,25 @@ interface event {
     on-ui-render: func(element-id: string) -> future;
     on-card-render: func(card-id: string) -> future;
 }
+
+interface event-v3 {
+
+    enum event-type {
+        plugin-message,
+        interconnect-message, // 需plugin执行host接口register-interconnect-recv才会收到
+        device-action,
+        provider-action,
+        deeplink-action,
+
+        transport-packet, // 需plugin执行host接口register-transport-recv才会收到
+        timer,
+    }
+
+    on-event: func(event-type: event-type, event-payload: string) -> future<string>;
+
+    use astrobox:psys-host/ui-v3.{event};
+    on-ui-event-v3: func(event-id: string, event: event, event-payload: string) -> future<string>;
+
+    on-ui-render: func(element-id: string) -> future;
+    on-card-render: func(card-id: string) -> future;
+}
