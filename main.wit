@@ -6,6 +6,7 @@ use astrobox:psys-host/os;
 use astrobox:psys-host/transport;
 use astrobox:psys-host/ui;
 use astrobox:psys-host/ui-v3;
+use astrobox:psys-host/clipboard;
 use astrobox:psys-host/dialog;
 use astrobox:psys-host/device;
 use astrobox:psys-host/register;
@@ -27,6 +28,7 @@ world psys-world {
   import transport;
   import ui;
   import ui-v3;
+  import clipboard;
   import dialog;
   import device;
   import register;
@@ -48,6 +50,7 @@ world psys-world-v2 {
   import transport;
   import ui;
   import ui-v3;
+  import clipboard;
   import dialog;
   import device;
   import register;
@@ -68,6 +71,7 @@ world psys-world-v3 {
   import os;
   import transport;
   import ui-v3;
+  import clipboard;
   import dialog;
   import device;
   import register;
