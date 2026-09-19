@@ -21,6 +21,8 @@
 package astrobox:psys-host-v4;
 
 interface os {
+    // 持久的宿主安装标识；不是硬件序列号，清除应用数据后会改变。
+    device-id: async func() -> result<string, string>;
     arch: async func() -> string;
     hostname: async func() -> string;
     locale: async func() -> string;
@@ -502,4 +504,94 @@ interface browser {
     get-cookies: async func(id: u32, url: string) -> result<list<cookie>, string>;
 
     close: async func(id: u32) -> result<_, string>;
+}
+
+interface notification {
+    record text {
+        chars: string,
+        color: option<list<u8>>,
+    }
+
+    record progress {
+        section-count: u32,
+        progress: u32,
+        color: option<list<u8>>,
+    }
+
+    record info {
+        title: text,
+        sub-title: option<text>,
+        content: option<text>,
+        sub-content: option<text>,
+        special-title: option<text>,
+        special-title-bg: option<list<u8>>,
+    }
+
+    record focus {
+        style: u32,
+        title: text,
+        content: text,
+        desc: text,
+        progress: option<progress>,
+        updatable: bool,
+        sequence: u32,
+    }
+
+    record focus-v2 {
+        scene: u32,
+        ticker: string,
+        basic-info: info,
+        hint-info: option<info>,
+        progress: option<progress>,
+        updatable: bool,
+        sequence: u32,
+    }
+
+    variant live-activity {
+        focus(focus),
+        focus-v2(focus-v2),
+    }
+
+    record message {
+        id: u32,
+        app-name: string,
+        title: string,
+        sub-title: string,
+        body: string,
+        timestamp-ms: option<u64>,
+        live-activity: option<live-activity>,
+    }
+
+    // 相同插件内 id 相同即更新；成功只表示传输入队，不保证设备显示。
+    send: async func(addr: string, message: message) -> result<_, string>;
+    remove: async func(addr: string, id: u32) -> result<_, string>;
+}
+
+interface account {
+    enum binding-status {
+        linked,
+        unlinked,
+        unavailable,
+    }
+
+    record binding {
+        provider: string,
+        status: binding-status,
+        id: option<string>,
+        username: option<string>,
+        display-name: option<string>,
+        avatar: option<string>,
+    }
+
+    record profile {
+        id: string,
+        name: string,
+        username: option<string>,
+        avatar: option<string>,
+        source: string,
+        bindings: list<binding>,
+    }
+
+    // 本地未登录时为 none；绑定查询失败时对应 status 为 unavailable。
+    get-current: async func() -> result<option<profile>, string>;
 }

@@ -108,6 +108,8 @@ world psys-world-v4 {
   import astrobox:psys-host-v4/i18n;
   import astrobox:psys-host-v4/http-server;
   import astrobox:psys-host-v4/browser;
+  import astrobox:psys-host-v4/notification;
+  import astrobox:psys-host-v4/account;
 
   export astrobox:psys-plugin-v4/lifecycle;
   export astrobox:psys-plugin-v4/event;
