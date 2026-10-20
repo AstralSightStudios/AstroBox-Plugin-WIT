@@ -595,3 +595,28 @@ interface account {
     // 本地未登录时为 none；绑定查询失败时对应 status 为 unavailable。
     get-current: async func() -> result<option<profile>, string>;
 }
+
+// CanopusConnect：与手环上的 Canopus 模块按模块名互发文本/二进制消息。
+//
+// 走 Canopus 的 L2 通道（0x43），和管理器的 RPC 共用一条流但互不干扰。一条消息就是
+// 一帧，data 最多 480 字节（按字节算，文本是 UTF-8）。需要手环上的 Supervisor 支持
+// CanopusConnect，旧版会报错。两个方向各要一个权限：
+//   * `canopusconnect.send`   —— 向模块发消息；
+//   * `canopusconnect.listen` —— 监听模块发来的消息。
+// 监听到的消息通过插件导出的 `astrobox:psys-plugin-v4/canopusconnect`（世界
+// `psys-world-v4-canopusconnect`）送达；没实现它的插件调用 `listen` 会报错。
+interface canopusconnect {
+    variant payload {
+        text(string),
+        binary(list<u8>),
+    }
+
+    // 把消息交给设备上 id 为 module 的模块。设备把消息交给该模块的监听回调后才返回；
+    // 模块不存在、没在监听、或设备不支持 CanopusConnect 都会返回原因。
+    send: async func(device-addr: string, module: string, payload: payload) -> result<_, string>;
+
+    // 开始监听 module 发来的消息。监听归当前插件所有：重复调用无副作用，插件停止时自动取消，
+    // 设备重连后宿主会补发。其他插件对同一模块的监听互不影响。
+    listen: async func(device-addr: string, module: string) -> result<_, string>;
+    unlisten: async func(device-addr: string, module: string) -> result<_, string>;
+}

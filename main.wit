@@ -110,6 +110,7 @@ world psys-world-v4 {
   import astrobox:psys-host-v4/browser;
   import astrobox:psys-host-v4/notification;
   import astrobox:psys-host-v4/account;
+  import astrobox:psys-host-v4/canopusconnect;
 
   export astrobox:psys-plugin-v4/lifecycle;
   export astrobox:psys-plugin-v4/event;
@@ -128,4 +129,19 @@ world psys-world-v4-http {
 // 插件不要用这个世界，要用 `psys-world-v4-http`。
 world psys-plugin-http-export {
   export astrobox:psys-plugin-v4/http;
+}
+
+// 需要接收 CanopusConnect 消息的 Level 4 插件用这个世界：在基础世界之上多导出一个
+// 消息处理接口，宿主同样单独查找这个导出。同时要 HTTP 的插件自己写一个 include
+// `psys-world-v4` 并导出两个接口的世界即可。
+world psys-world-v4-canopusconnect {
+  include psys-world-v4;
+
+  export astrobox:psys-plugin-v4/canopusconnect;
+}
+
+// 仅供宿主使用：单独把插件的 CanopusConnect 消息处理导出拿出来做查找，因此不含任何
+// import。插件不要用这个世界，要用 `psys-world-v4-canopusconnect`。
+world psys-plugin-canopusconnect-export {
+  export astrobox:psys-plugin-v4/canopusconnect;
 }

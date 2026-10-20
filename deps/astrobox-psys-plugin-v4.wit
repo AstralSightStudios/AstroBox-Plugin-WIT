@@ -50,3 +50,13 @@ interface http {
     // 一个插件可以同时开多个。
     handle: async func(server-id: u32, request: request) -> response;
 }
+
+// 插件侧的 CanopusConnect 消息处理。只有目标世界是 `psys-world-v4-canopusconnect`
+// （或自己的世界导出了它）时才需要实现。
+interface canopusconnect {
+    use astrobox:psys-host-v4/canopusconnect.{payload};
+
+    // 收到 module 发来的一条消息。只有 `canopusconnect.listen` 过该模块才会收到；
+    // 同一插件的多条消息并发处理，不保证先发先到。
+    on-message: async func(device-addr: string, module: string, payload: payload);
+}
