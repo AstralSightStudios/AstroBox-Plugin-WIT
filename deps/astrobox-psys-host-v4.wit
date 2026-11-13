@@ -349,6 +349,7 @@ interface queue {
     // 安装包的来源。两种都会被宿主接管，入队后不要再读写它：
     //  * file  —— 插件目录内的相对路径（不能越出插件目录）。宿主把文件**移走**，不再复制一份，
     //             所以几百 MB 的包也不占插件内存；任务结束后由宿主删除。
+    //             入队失败（返回错误）时文件会放回原处，原处已有新文件则丢弃。
     //  * bytes —— 直接给内容。宿主写进自己的暂存目录，任务结束后删除。受插件内存上限约束，
     //             大包请用 file。
     variant install-source {
@@ -379,7 +380,10 @@ interface queue {
     // 是否自动开始跟随用户的「自动安装本地资源」设置。
     enqueue-install: async func(task: install-task) -> result<string, string>;
 
-    // 取消当前插件自己入队的任务（排队中直接移除，正在传输的会发起取消）。
+    // 取消当前插件自己入队、还没开始安装的任务（排队、等设备、等重试中的），
+    // 之后会收到一条 status 为 canceled 的 `queue.task`。
+    // 已经开始安装的任务取消不了，已结束的任务也不能再取消，二者都返回错误；
+    // 任务不存在或不是本插件创建的返回 `no such task`。
     cancel-task: async func(task-id: string) -> result<_, string>;
 }
 
@@ -404,7 +408,7 @@ interface mass {
         package-name: option<string>,
         // 想收传输进度就填一个事件名。传输期间宿主以插件消息送回，payload 是 JSON：
         //   {"progress": 0.0 ~ 1.0}
-        // 不会比每 250ms 更频繁，结束时一定有一条 progress=1.0。
+        // 不会比每 250ms 更频繁，成功结束时一定有一条 progress=1.0（失败时没有，看返回值）。
         progress-event: option<string>,
     }
 
