@@ -345,6 +345,71 @@ interface queue {
     }
 
     add-resource-to-queue: func(res-type: resource-type, file-path: string);
+
+    // 安装包的来源。两种都会被宿主接管，入队后不要再读写它：
+    //  * file  —— 插件目录内的相对路径（不能越出插件目录）。宿主把文件**移走**，不再复制一份，
+    //             所以几百 MB 的包也不占插件内存；任务结束后由宿主删除。
+    //  * bytes —— 直接给内容。宿主写进自己的暂存目录，任务结束后删除。受插件内存上限约束，
+    //             大包请用 file。
+    variant install-source {
+        file(string),
+        bytes(list<u8>),
+    }
+
+    record install-task {
+        // 队列里显示的名字
+        name: string,
+        // 队列里显示的副标题；留空则按资源类型给一个默认说明
+        description: option<string>,
+        // 队列里显示的图标：https URL 或 data URL
+        icon: option<string>,
+        // 目标设备（已连接设备的地址，见 `device.get-connected-device-list`）
+        device-addr: string,
+        res-type: resource-type,
+        source: install-source,
+        // 仅表盘：改写表盘 ID
+        watchface-id: option<string>,
+    }
+
+    // 往安装队列里加一个安装任务，返回任务 id。成功只表示已入队，不表示已装上；
+    // 任务状态变化会以插件消息的形式送回，事件名 `queue.task`（见 `on-event` 的
+    // `plugin-message`），payload 是 JSON：
+    //   {"taskId","status","progress","errorCode","errorDetail"}
+    // status 取值 pending / running / waiting_device / succeeded / failed / canceled。
+    // 是否自动开始跟随用户的「自动安装本地资源」设置。
+    enqueue-install: async func(task: install-task) -> result<string, string>;
+
+    // 取消当前插件自己入队的任务（排队中直接移除，正在传输的会发起取消）。
+    cancel-task: async func(task-id: string) -> result<_, string>;
+}
+
+// MASS：小米设备上的大块数据通道。
+//
+// 这里发的是**原始载荷**，宿主不会替你解包或改写：表盘要给设备直接认的 `.bin`
+// （`.mwz` 之类的压缩包请先自己解开），快应用给 `.rpk`，固件给 OTA 文件。
+// 想要宿主帮忙处理压缩包、校验、断线重试，请改用 `queue.enqueue-install`。
+// 同一台设备同一时间只能有一个安装在进行，撞上正在进行的安装会直接返回错误。
+interface mass {
+    enum data-type {
+        watchface,
+        quickapp,
+        firmware,
+        notification-icon,
+    }
+
+    record send-options {
+        // 仅表盘：改写表盘 ID
+        watchface-id: option<string>,
+        // quickapp / notification-icon 用：应用包名；快应用不填则用占位包名
+        package-name: option<string>,
+        // 想收传输进度就填一个事件名。传输期间宿主以插件消息送回，payload 是 JSON：
+        //   {"progress": 0.0 ~ 1.0}
+        // 不会比每 250ms 更频繁，结束时一定有一条 progress=1.0。
+        progress-event: option<string>,
+    }
+
+    // 把 data 作为 MASS 载荷发给设备，并等设备确认安装结果。
+    send: async func(device-addr: string, data-type: data-type, data: list<u8>, options: send-options) -> result<_, string>;
 }
 
 interface timer {
